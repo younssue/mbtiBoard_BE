@@ -38,6 +38,7 @@ public class TestController {
 
     @GetMapping("/env")
     public ResponseEntity<?> getTest(){
+        System.out.printf("deploy success");
         return ResponseEntity.ok(env);
     }
 }
