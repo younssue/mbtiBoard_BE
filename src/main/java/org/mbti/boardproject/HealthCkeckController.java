@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @RestController
-public class TestController {
+public class HealthCkeckController {
 
     @Value("${server.env}")
     private String env;
@@ -26,7 +26,7 @@ public class TestController {
 
 
 
-    @GetMapping("/test")
+    @GetMapping("/hc")
     public ResponseEntity<?> test(){
         Map<String,String> reponseData = new TreeMap<>();
         reponseData.put("serverName",ServerName);
