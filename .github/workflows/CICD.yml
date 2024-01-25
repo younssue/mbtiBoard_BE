@@ -35,9 +35,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build Docker
-      run: docker build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/boardServer .
+      run: docker build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/board_server .
     - name: Push Docker
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/boardServer:latest
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/board_server:latest
       
   deploy:
     needs: build
@@ -45,10 +45,10 @@ jobs:
     steps:
       - name: Set target IP
         run: |
-          STATUS=$(curl -o /dev/null -w "%{http_code}" "http://${{ secrets.boardServer_IP }}/env")
+          STATUS=$(curl -o /dev/null -w "%{http_code}" "http://${{ secrets.board_server_IP }}/env")
           echo $STATUS
           if [ $STATUS = 200 ]; then
-            CURRENT_UPSTREAM=$(curl -s "http://${{ secrets.boardServer_IP }}/env")
+            CURRENT_UPSTREAM=$(curl -s "http://${{ secrets.board_server_IP }}/env")
           else
             CURRENT_UPSTREAM=green
           fi
@@ -70,11 +70,11 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: ubuntu
-          host: ${{ secrets.boardServer_IP }}
+          host: ${{ secrets.board_server_IP }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
           script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/boardServer:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/board_server:latest
             sudo docker-compose -f docker-compose-${{env.TARGET_UPSTREAM}}.yml up -d
       
       - name: Check deploy server URL
@@ -88,7 +88,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: ubuntu
-          host: ${{ secrets.boardServer_IP }}
+          host: ${{ secrets.board_server_IP }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
           script: |
@@ -98,7 +98,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: ubuntu
-          host: ${{ secrets.boardServer_IP }}
+          host: ${{ secrets.board_server_IP }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
           script: |
