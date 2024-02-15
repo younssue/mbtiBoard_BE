@@ -47,11 +47,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: ✨ Docker Image 빌드 후 DockerHub에 Push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
-          file: ./Dockerfile
           push: true
-          platforms: linux/arm64
           tags: ${{ env.DOCKER_HUB_REPOSITORY }}:latest
           
 
