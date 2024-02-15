@@ -46,12 +46,13 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-
-      - name: Build Docker
-        run: docker build --platform linux/amd64 -t ${{ secrets.DOCKER_HUB_USERNAME }}/mbtiboard .
-      - name: Push Docker
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mbtiboard:latest
-
+      - name: ✨ Docker Image 빌드 후 DockerHub에 Push
+        uses: docker/build-push-action@v4
+        with:
+          file: ./Dockerfile
+          push: true
+          platforms: linux/arm64
+          tags: ${{ env.DOCKER_HUB_REPOSITORY }}:latest
           
 
   backend-docker-pull-and-run:
