@@ -1,7 +1,7 @@
 name: ✨ DEV CD ✨
 
 env:
-  DOCKER_HUB_REPOSITORY: younnsue/mbtiboard
+  DOCKER_HUB_REPOSITORY: younsue/mbtiboard
 
 on:
   workflow_dispatch:
