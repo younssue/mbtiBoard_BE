@@ -47,12 +47,12 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: ✨ Docker Image 빌드 후 DockerHub에 Push
-        uses: docker/build-push-action@v4
-        with:
-          file: ./Dockerfile
-          push: true
-          platforms: linux/arm64
-          tags: ${{ env.DOCKER_HUB_REPOSITORY }}:latest
+      - name: Build Docker
+        run: docker build --platform linux/amd64 -t ${{ env.DOCKER_HUB_REPOSITORY }} .
+      - name: Push Docker
+        run: docker push ${{ env.DOCKER_HUB_REPOSITORY }}:latest
+
+          
 
   backend-docker-pull-and-run:
     runs-on: [self-hosted, dev]
