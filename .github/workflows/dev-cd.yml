@@ -48,7 +48,7 @@ jobs:
 
 
       - name: Build Docker
-        run: docker build --platform linux/amd64 -t ${{ secrets.DOCKER_HUB_USERNAME }}/mbitboard .
+        run: docker build --platform linux/amd64 -t ${{ secrets.DOCKER_HUB_USERNAME }}/mbtiboard .
       - name: Push Docker
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mbtiboard:latest
 
