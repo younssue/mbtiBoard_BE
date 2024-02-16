@@ -43,6 +43,7 @@ jobs:
       - name: ✨ Docker build context 준비
         run: |
           mkdir -p docker-context/build/libs
+          cp Dockerfile docker-context/
           cp build/libs/*.jar docker-context/build/libs
 
       - name: ✨ DockerHub에 로그인
